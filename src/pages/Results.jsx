@@ -26,14 +26,20 @@ export default function Results() {
       : 'Pickwise — Smarter Picks. Every Time.';
   }, [query, location.city]);
 
-  useEffect(() => {
-    if (query && !location.loading && !didSearch.current) {
-      didSearch.current = true;
-      search(query, location);
-    }
-  }, [query, location.loading, location, search]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Snapshot location into a ref so we can read it inside the effect
+  // without making location object identity a dependency (avoids infinite loop)
+  const locationRef = useRef(location);
+  useEffect(() => { locationRef.current = location; }, [location]);
 
-  // Reset didSearch when query changes
+  useEffect(() => {
+    if (!query) return;
+    if (location.loading) return;
+    if (didSearch.current) return;
+    didSearch.current = true;
+    search(query, locationRef.current);
+  }, [query, location.loading]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Reset didSearch when query changes so a new search fires
   useEffect(() => {
     didSearch.current = false;
   }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
