@@ -15,12 +15,12 @@ export default async function handler(req, res) {
 
   const systemPrompt = `You are Pickwise's assistant. Answer follow-up questions about search results concisely and helpfully. Original query: "${originalQuery}". Results context: ${JSON.stringify(results)}. Answer in 2–4 sentences. Be direct, specific, and helpful. Never recommend anything illegal or unsafe.`;
 
-  const MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b'];
+  const MODELS = ['gemini-2.0-flash-lite', 'gemini-1.5-flash-latest', 'gemini-1.5-flash-8b-latest'];
 
   for (const model of MODELS) {
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

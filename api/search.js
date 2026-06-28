@@ -103,7 +103,7 @@ Date: ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', 
 
 Return the best 6 options as JSON only. No markdown, no code blocks, just the raw JSON object.`;
 
-  const MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-flash-8b'];
+  const MODELS = ['gemini-2.0-flash-lite', 'gemini-1.5-flash-latest', 'gemini-1.5-flash-8b-latest'];
   const start = Date.now();
   let lastError = null;
 
@@ -112,7 +112,7 @@ Return the best 6 options as JSON only. No markdown, no code blocks, just the ra
       console.log(`[Pickwise] Trying model: ${model} for query: "${query}"`);
 
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
