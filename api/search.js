@@ -3,9 +3,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'GEMINI_API_KEY not configured on server' });
+    return res.status(500).json({ error: 'GROQ_API_KEY not configured on server' });
   }
 
   const { query, location } = req.body || {};
@@ -103,7 +103,7 @@ Date: ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', 
 
 Return the best 6 options as JSON only. No markdown, no code blocks, just the raw JSON object.`;
 
-  const MODELS = ['gemini-2.0-flash-lite', 'gemini-1.5-flash-latest', 'gemini-1.5-flash-8b-latest'];
+  const MODELS = ['llama-3.3-70b-versatile', 'mixtral-8x7b-32768', 'llama-3.1-8b-instant'];
   const start = Date.now();
   let lastError = null;
 
@@ -111,18 +111,22 @@ Return the best 6 options as JSON only. No markdown, no code blocks, just the ra
     try {
       console.log(`[Pickwise] Trying model: ${model} for query: "${query}"`);
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-            generationConfig: { maxOutputTokens: 1500, temperature: 0.7 }
-          })
-        }
-      );
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userMessage }
+          ],
+          max_tokens: 1500,
+          temperature: 0.7
+        })
+      });
 
       const data = await response.json();
 
@@ -132,7 +136,7 @@ Return the best 6 options as JSON only. No markdown, no code blocks, just the ra
         continue;
       }
 
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      const text = data.choices?.[0]?.message?.content;
       if (!text) {
         lastError = 'Empty response from AI';
         continue;
