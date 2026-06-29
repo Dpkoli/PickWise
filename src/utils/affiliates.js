@@ -1,10 +1,13 @@
 export const AFFILIATE_CONFIG = {
-  amazon_uk:   "https://amazon.co.uk/s?k={query}&tag=YOURTAG-21",
-  amazon_us:   "https://amazon.com/s?k={query}&tag=YOURTAG-20",
-  booking:     "https://booking.com/searchresults.html?ss={query}&aid=BOOKAID",
-  google_maps: "https://maps.google.com/?q={query}",
-  tripadvisor: "https://tripadvisor.com/Search?q={query}",
-  default:     "#affiliate-placeholder"
+  amazon_uk:       "https://amazon.co.uk/s?k={query}&tag=YOURTAG-21",
+  amazon_us:       "https://amazon.com/s?k={query}&tag=YOURTAG-20",
+  booking:         "https://booking.com/searchresults.html?ss={query}&aid=BOOKAID",
+  google_maps:     "https://maps.google.com/?q={query}+near+me",
+  google_shopping: "https://www.google.com/search?q={query}&tbm=shop",
+  tripadvisor:     "https://tripadvisor.com/Search?q={query}",
+  direct:          "https://www.google.com/search?q={query}+official+site+buy",
+  brand_website:   "https://www.google.com/search?q={query}+official+site",
+  default:         "https://www.google.com/search?q={query}+buy+online"
 };
 
 export function buildAffiliateUrl(hint, name, query) {

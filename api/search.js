@@ -17,12 +17,20 @@ export default async function handler(req, res) {
 
 CRITICAL RULES:
 1. ALWAYS recommend the actual product/service/experience by name — NEVER a store or retailer (e.g. say "De'Longhi Magnifica Evo" NOT "Currys PC World")
-2. For "local_results": recommend products, services, or experiences that are popular or well-suited for users in ${location?.city || 'the user\'s city'}, ${location?.country || ''}. Consider local pricing, availability, weather, culture, or regulations where relevant. Still name the PRODUCT, not a shop.
-3. For "world_results": the 3 globally best-rated products/services/experiences for this query
-4. If the query is for a LOCAL SERVICE (e.g. "best plumber", "best restaurant"), then local_results CAN name real local businesses — but world_results must still be product/brand recommendations
-5. Score 1–10 based on reviews, reputation, value, and fit for the user's context
-6. Descriptions must explain WHY it's the best choice — features, pros, what makes it stand out
-7. Return ONLY valid JSON — no markdown, no code fences, no preamble
+2. For "local_results": recommend the 3 best products/services that are most popular, well-reviewed, and available in ${location?.country || 'the user\'s country'}. Consider local pricing, regulations, and availability.
+3. For "world_results": the 3 globally best-rated products for this query — these must be DIFFERENT products from local_results
+4. If the query is for a LOCAL SERVICE (e.g. "best plumber", "best restaurant near me"), local_results CAN name real local businesses
+5. Score 1–10 based on verified reviews, reputation, value, and fit
+6. Descriptions must state specific features/pros — WHY it is the best choice, not just what it is
+7. Use VARIED affiliate_hint values — do not use "amazon_uk" for every result. Choose the most appropriate:
+   - "amazon_uk" → product available on Amazon UK
+   - "amazon_us" → product best found on Amazon US
+   - "google_shopping" → compare prices across retailers
+   - "direct" → brand sells direct from official website
+   - "brand_website" → find on brand's own site
+   - "booking" → hotels/travel
+   - "google_maps" → local place/service
+8. Return ONLY valid JSON — no markdown, no code fences, no preamble
 
 REQUIRED JSON STRUCTURE (return exactly this, nothing else):
 {
@@ -32,12 +40,12 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
   "local_results": [
     {
       "rank": 1,
-      "name": "Exact product or service name (e.g. De'Longhi Magnifica Evo)",
+      "name": "Exact product name (e.g. De'Longhi Magnifica Evo)",
       "score": 9.4,
-      "description": "2 sentences: what it is + why it is the best choice for this user",
+      "description": "2 sentences: specific features + why it is the best choice for users in ${location?.country || 'this country'}",
       "tags": ["tag1", "tag2", "tag3"],
-      "availability": "Available in ${location?.country || 'your country'} | Ships to you | In stock",
-      "cta_text": "Buy now",
+      "availability": "Available in ${location?.country || 'your country'}",
+      "cta_text": "Buy on Amazon",
       "affiliate_hint": "amazon_uk"
     },
     {
@@ -47,8 +55,8 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
       "description": "2 sentences description",
       "tags": ["tag1", "tag2"],
       "availability": "Available online",
-      "cta_text": "Shop now",
-      "affiliate_hint": "amazon_uk"
+      "cta_text": "Compare prices",
+      "affiliate_hint": "google_shopping"
     },
     {
       "rank": 3,
@@ -57,8 +65,8 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
       "description": "2 sentences description",
       "tags": ["tag1", "tag2"],
       "availability": "Available online",
-      "cta_text": "Shop now",
-      "affiliate_hint": "amazon_uk"
+      "cta_text": "Buy direct",
+      "affiliate_hint": "direct"
     }
   ],
   "world_results": [
@@ -66,7 +74,7 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
       "rank": 1,
       "name": "Best global product name",
       "score": 9.7,
-      "description": "2 sentences: what it is + why it is the best globally",
+      "description": "2 sentences: specific features + why it is the globally best",
       "tags": ["tag1", "tag2"],
       "availability": "Ships worldwide",
       "cta_text": "Buy direct",
@@ -80,7 +88,7 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
       "tags": ["tag1", "tag2"],
       "availability": "Available online",
       "cta_text": "Buy on Amazon",
-      "affiliate_hint": "amazon_uk"
+      "affiliate_hint": "amazon_us"
     },
     {
       "rank": 3,
@@ -89,8 +97,8 @@ REQUIRED JSON STRUCTURE (return exactly this, nothing else):
       "description": "2 sentences description",
       "tags": ["tag1", "tag2"],
       "availability": "Available online",
-      "cta_text": "Shop now",
-      "affiliate_hint": "amazon_uk"
+      "cta_text": "Compare prices",
+      "affiliate_hint": "google_shopping"
     }
   ],
   "ai_insight": "One genuinely useful expert tip most people don't know about this topic",
@@ -125,7 +133,7 @@ Return the best 6 options as JSON only. No markdown, no code blocks, just the ra
             { role: 'user', content: userMessage }
           ],
           max_tokens: 1500,
-          temperature: 0.7
+          temperature: 0.2
         })
       });
 
