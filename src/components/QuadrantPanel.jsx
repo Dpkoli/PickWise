@@ -25,7 +25,7 @@ export default function QuadrantPanel({ type, city, results = [], query, categor
             </svg>
           )}
           <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 15, color: '#0A0A12' }}>
-            {isLocal ? `3 best near ${city || 'you'}` : '3 best worldwide'}
+            {isLocal ? `3 top picks for ${city || 'you'}` : '3 best worldwide'}
           </span>
         </div>
         <span style={{ fontSize: 12, color: '#8888A0', fontFamily: 'Inter, sans-serif' }}>3 picks</span>
