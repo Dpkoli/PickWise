@@ -24,7 +24,8 @@ export const AFFILIATE_CONFIG = {
   booking:     (q) => `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(q)}&aid=BOOKAID`,
   tripadvisor: (q) => `https://www.tripadvisor.co.uk/Search?q=${encodeURIComponent(q)}`,
   viator:      (q) => `https://www.viator.com/searchResults/all?text=${encodeURIComponent(q)}`,
-  skyscanner:  (q) => `https://www.skyscanner.net/transport/flights/?query=${encodeURIComponent(q)}`,
+  // Skyscanner needs airport codes for deep links — use Google Flights which handles natural language
+  skyscanner:  (q) => `https://www.google.com/travel/flights?q=${encodeURIComponent(q)}`,
 
   // Learning
   udemy:       (q) => `https://www.udemy.com/courses/search/?q=${encodeURIComponent(q)}`,
@@ -80,8 +81,12 @@ export const CTA_LABELS = {
   default:     'View →',
 };
 
+// For travel hints, the original search query (e.g. "flights to Kathmandu")
+// is more useful than the result name (e.g. "Turkish Airlines")
+const USE_ORIGINAL_QUERY = new Set(['skyscanner', 'booking', 'viator']);
+
 export function buildAffiliateUrl(hint, name, query) {
-  const term = name || query;
+  const term = USE_ORIGINAL_QUERY.has(hint) ? (query || name) : (name || query);
   const builder = AFFILIATE_CONFIG[hint] || AFFILIATE_CONFIG.default;
   return builder(term);
 }
