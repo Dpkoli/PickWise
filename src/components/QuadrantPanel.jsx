@@ -31,9 +31,9 @@ export default function QuadrantPanel({ type, city, results = [], query, categor
         <span style={{ fontSize: 12, color: '#8888A0', fontFamily: 'Inter, sans-serif' }}>3 picks</span>
       </div>
 
-      {/* Cards */}
+      {/* Cards — hard cap at 3 regardless of AI response */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {results.map((item, i) => (
+        {results.slice(0, 3).map((item, i) => (
           <ResultCard
             key={i}
             rank={item.rank || i + 1}

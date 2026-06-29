@@ -32,24 +32,28 @@ STEP 1 — Detect search intent from the query:
 - "health"      → clinic, therapist, doctor, dentist, physio
 - "streaming"   → TV show, film, music, podcast platform
 
-STEP 2 — Choose affiliate_hint: always pick the BEST NAMED RETAILER for this specific product/service. Never use "google_shopping", "direct", or "brand_website" — always name a real retailer.
+STEP 2 — Choose affiliate_hint using ONLY these allowed values:
 
-RETAILER SELECTION GUIDE (pick most appropriate for product + location):
-- Electronics (TV, laptop, phone, headphones, camera): "currys" (UK) or "bestbuy" (US) or "amazon_uk"
-- Home appliances (coffee machine, vacuum, air fryer): "currys" or "john_lewis" or "amazon_uk"
-- General products, tools, toys, baby: "amazon_uk" or "argos"
-- Health, beauty, skincare, vitamins: "boots" or "amazon_uk"
-- Fashion, clothing, shoes, accessories: "asos" or "amazon_uk"
-- Books: "amazon_uk"
-- Courses, learning: "udemy" or "coursera"
-- Hotels, accommodation: "booking"
-- Restaurants, cafes, food: "tripadvisor"
-- Experiences, activities, tours: "viator"
-- Flights, travel: "skyscanner"
-- Local services (plumber, cleaner, trainer): "google_maps"
-- US-market products: "walmart" or "bestbuy" or "amazon_us"
-- Second-hand / collectibles / niche: "ebay_uk"
-- Premium / luxury goods: "john_lewis" or "amazon_uk"
+PHYSICAL PRODUCTS (shoes, electronics, appliances, toys, tools, clothing, beauty, books, etc.):
+→ "amazon_uk" for products available in the UK/Europe
+→ "amazon_us" for products primarily sold in the US market
+→ "ebay_uk" ONLY for second-hand, vintage, or niche collector items
+
+TRAVEL & EXPERIENCES:
+→ "booking" for hotels, hostels, apartments, resorts
+→ "tripadvisor" for restaurants, cafes, bars, food experiences
+→ "viator" for tours, activities, experiences, day trips
+→ "skyscanner" for flights, travel routes
+
+LEARNING:
+→ "udemy" for practical skills courses (coding, design, business)
+→ "coursera" for academic or professional certification courses
+
+LOCAL SERVICES (plumber, cleaner, trainer, photographer, vet, mechanic):
+→ "google_maps" — links to Google Maps so user can find local providers
+
+DO NOT USE: currys, argos, john_lewis, boots, asos, walmart, bestbuy, target, moneysupermarket
+These retailers have inconsistent catalogs and produce wrong results.
 
 STEP 3 — For local_results vs world_results:
 - "local" intent (restaurant, local service, health): local_results = REAL businesses in ${city}, ${country}. world_results = best globally recognised brands/chains/products in that category
@@ -66,7 +70,7 @@ CRITICAL RULES:
 8. Return ONLY valid JSON — no markdown, no code fences, no preamble
 
 AFFILIATE HINTS REFERENCE (use ONLY these — no others):
-"amazon_uk" "amazon_us" "currys" "argos" "john_lewis" "boots" "asos" "ebay_uk" "walmart" "bestbuy" "target" "booking" "tripadvisor" "viator" "skyscanner" "udemy" "coursera" "google_maps"
+"amazon_uk" "amazon_us" "ebay_uk" "booking" "tripadvisor" "viator" "skyscanner" "udemy" "coursera" "google_maps"
 
 REQUIRED JSON STRUCTURE:
 {
@@ -85,7 +89,7 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy on Amazon",
+      "cta_text": "",
       "affiliate_hint": "amazon_uk"
     },
     {
@@ -99,8 +103,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy at Currys",
-      "affiliate_hint": "currys"
+      "cta_text": "",
+      "affiliate_hint": "amazon_uk"
     },
     {
       "rank": 3,
@@ -113,8 +117,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy at John Lewis",
-      "affiliate_hint": "john_lewis"
+      "cta_text": "",
+      "affiliate_hint": "amazon_uk"
     }
   ],
   "world_results": [
@@ -129,7 +133,7 @@ REQUIRED JSON STRUCTURE:
       "availability": "Ships worldwide",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy on Amazon",
+      "cta_text": "",
       "affiliate_hint": "amazon_uk"
     },
     {
@@ -143,8 +147,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy at Currys",
-      "affiliate_hint": "currys"
+      "cta_text": "",
+      "affiliate_hint": "amazon_uk"
     },
     {
       "rank": 3,
@@ -157,8 +161,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy at Argos",
-      "affiliate_hint": "argos"
+      "cta_text": "",
+      "affiliate_hint": "amazon_uk"
     }
   ],
   "ai_insight": "One expert tip most people don't know about this topic",
