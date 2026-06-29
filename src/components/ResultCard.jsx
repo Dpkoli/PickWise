@@ -22,12 +22,12 @@ function ScoreBar({ label, value }) {
   );
 }
 
-export default function ResultCard({ rank, name, score, scores, bestFor, description, tags, ctaText, affiliateHint, type, isTop, query, category, animationDelay = 0 }) {
+export default function ResultCard({ rank, name, score, scores, bestFor, description, tags, affiliateHint, type, isTop, query, category, animationDelay = 0 }) {
   const [showReport, setShowReport] = useState(false);
   const [showScores, setShowScores] = useState(false);
   const accentColor = type === 'local' ? '#0EB87B' : '#5254E8';
   const affiliateUrl = buildAffiliateUrl(affiliateHint, name, query);
-  const buttonLabel = ctaText || CTA_LABELS[affiliateHint] || 'View →';
+  const buttonLabel = CTA_LABELS[affiliateHint] || 'View →';
 
   function handleCtaClick() {
     logClick({ rank, type, name, category, query });
