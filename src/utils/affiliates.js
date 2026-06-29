@@ -1,69 +1,89 @@
+// All URLs use {query} as placeholder — replaced with the exact product/service name.
+// Replace the capitalised placeholders (YOURTAG-21 etc.) with your real affiliate IDs
+// once you join each programme.
+
 export const AFFILIATE_CONFIG = {
-  amazon_uk:        "https://www.amazon.co.uk/s?k={query}&tag=YOURTAG-21",
-  amazon_us:        "https://www.amazon.com/s?k={query}&tag=YOURTAG-20",
-  amazon_books:     "https://www.amazon.co.uk/s?k={query}&i=stripbooks&tag=YOURTAG-21",
-  google_shopping:  "https://www.google.com/search?q={query}&tbm=shop",
-  tripadvisor:      "https://www.tripadvisor.co.uk/Search?q={query}",
-  booking:          "https://www.booking.com/searchresults.html?ss={query}&aid=BOOKAID",
-  viator:           "https://www.viator.com/searchResults/all?text={query}",
-  skyscanner:       "https://www.skyscanner.net/transport/flights/?query={query}",
-  udemy:            "https://www.udemy.com/courses/search/?q={query}",
-  coursera:         "https://www.coursera.org/search?query={query}",
-  moneysupermarket: "https://www.moneysupermarket.com/",
-  google_maps:      "https://maps.google.com/?q={query}",
-  direct:           "https://www.google.com/search?q={query}+official+site+buy",
-  brand_website:    "https://www.google.com/search?q={query}+official+site",
-  default:          "https://www.google.com/search?q={query}+buy+online"
+  // Amazon — Amazon Associates (affiliate-program.amazon.co.uk / amazon.com)
+  amazon_uk:   (q) => `https://www.amazon.co.uk/s?k=${encodeURIComponent(`"${q}"`)}&tag=YOURTAG-21`,
+  amazon_us:   (q) => `https://www.amazon.com/s?k=${encodeURIComponent(`"${q}"`)}&tag=YOURTAG-20`,
+
+  // UK retailers — all available via Awin (awin.com) once approved
+  currys:      (q) => `https://www.currys.co.uk/search?q=${encodeURIComponent(q)}`,
+  argos:       (q) => `https://www.argos.co.uk/search/${encodeURIComponent(q)}/`,
+  john_lewis:  (q) => `https://www.johnlewis.com/search?search-term=${encodeURIComponent(q)}`,
+  boots:       (q) => `https://www.boots.com/search?q=${encodeURIComponent(q)}`,
+  asos:        (q) => `https://www.asos.com/search/?q=${encodeURIComponent(q)}`,
+  ebay_uk:     (q) => `https://www.ebay.co.uk/sch/i.html?_nkw=${encodeURIComponent(`"${q}"`)}`,
+
+  // US retailers
+  walmart:     (q) => `https://www.walmart.com/search?q=${encodeURIComponent(q)}`,
+  bestbuy:     (q) => `https://www.bestbuy.com/site/searchpage.jsp?st=${encodeURIComponent(q)}`,
+  target:      (q) => `https://www.target.com/s?searchTerm=${encodeURIComponent(q)}`,
+
+  // Travel & experiences
+  booking:     (q) => `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(q)}&aid=BOOKAID`,
+  tripadvisor: (q) => `https://www.tripadvisor.co.uk/Search?q=${encodeURIComponent(q)}`,
+  viator:      (q) => `https://www.viator.com/searchResults/all?text=${encodeURIComponent(q)}`,
+  skyscanner:  (q) => `https://www.skyscanner.net/transport/flights/?query=${encodeURIComponent(q)}`,
+
+  // Learning
+  udemy:       (q) => `https://www.udemy.com/courses/search/?q=${encodeURIComponent(q)}`,
+  coursera:    (q) => `https://www.coursera.org/search?query=${encodeURIComponent(q)}`,
+
+  // Local services
+  google_maps: (q) => `https://maps.google.com/?q=${encodeURIComponent(q)}`,
+
+  // Fallback — Amazon UK search
+  default:     (q) => `https://www.amazon.co.uk/s?k=${encodeURIComponent(q)}&tag=YOURTAG-21`,
 };
 
-export const STORE_LABELS = {
-  amazon_uk:        "Amazon UK",
-  amazon_us:        "Amazon US",
-  amazon_books:     "Amazon Books",
-  google_shopping:  "Compare prices",
-  tripadvisor:      "TripAdvisor",
-  booking:          "Booking.com",
-  viator:           "Viator",
-  skyscanner:       "Skyscanner",
-  udemy:            "Udemy",
-  coursera:         "Coursera",
-  moneysupermarket: "MoneySuperMarket",
-  google_maps:      "Google Maps",
-  direct:           "Official site",
-  brand_website:    "Official site"
+export const RETAILER_LABELS = {
+  amazon_uk:   'Amazon UK',
+  amazon_us:   'Amazon US',
+  currys:      'Currys',
+  argos:       'Argos',
+  john_lewis:  'John Lewis',
+  boots:       'Boots',
+  asos:        'ASOS',
+  ebay_uk:     'eBay',
+  walmart:     'Walmart',
+  bestbuy:     'Best Buy',
+  target:      'Target',
+  booking:     'Booking.com',
+  tripadvisor: 'TripAdvisor',
+  viator:      'Viator',
+  skyscanner:  'Skyscanner',
+  udemy:       'Udemy',
+  coursera:    'Coursera',
+  google_maps: 'Google Maps',
 };
 
-// CTA label shown on the button when ctaText isn't set
-export const DEFAULT_CTA = {
-  amazon_uk:        "Buy on Amazon",
-  amazon_us:        "Buy on Amazon",
-  amazon_books:     "Buy on Amazon",
-  google_shopping:  "Find best price",
-  tripadvisor:      "See reviews",
-  booking:          "Book now",
-  viator:           "Book experience",
-  skyscanner:       "Search flights",
-  udemy:            "View course",
-  coursera:         "View course",
-  moneysupermarket: "Compare",
-  google_maps:      "Get directions",
-  direct:           "Visit site",
-  brand_website:    "Visit site",
-  default:          "View →"
+export const CTA_LABELS = {
+  amazon_uk:   'Buy on Amazon',
+  amazon_us:   'Buy on Amazon',
+  currys:      'Buy at Currys',
+  argos:       'Buy at Argos',
+  john_lewis:  'Buy at John Lewis',
+  boots:       'Buy at Boots',
+  asos:        'Shop on ASOS',
+  ebay_uk:     'Buy on eBay',
+  walmart:     'Buy at Walmart',
+  bestbuy:     'Buy at Best Buy',
+  target:      'Buy at Target',
+  booking:     'Book on Booking.com',
+  tripadvisor: 'See on TripAdvisor',
+  viator:      'Book on Viator',
+  skyscanner:  'Search on Skyscanner',
+  udemy:       'View on Udemy',
+  coursera:    'View on Coursera',
+  google_maps: 'Get directions',
+  default:     'View →',
 };
 
 export function buildAffiliateUrl(hint, name, query) {
   const term = name || query;
-  // Amazon: quoted exact-match search for better product accuracy
-  if (hint === 'amazon_uk' || hint === 'amazon_books') {
-    return `https://www.amazon.co.uk/s?k=${encodeURIComponent(`"${term}"`)}&tag=YOURTAG-21`;
-  }
-  if (hint === 'amazon_us') {
-    return `https://www.amazon.com/s?k=${encodeURIComponent(`"${term}"`)}&tag=YOURTAG-20`;
-  }
-  const encoded = encodeURIComponent(term);
-  const template = AFFILIATE_CONFIG[hint] || AFFILIATE_CONFIG.default;
-  return template.replace('{query}', encoded);
+  const builder = AFFILIATE_CONFIG[hint] || AFFILIATE_CONFIG.default;
+  return builder(term);
 }
 
 export function buildMapsUrl(mapsQuery) {

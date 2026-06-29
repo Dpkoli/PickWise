@@ -32,19 +32,24 @@ STEP 1 — Detect search intent from the query:
 - "health"      → clinic, therapist, doctor, dentist, physio
 - "streaming"   → TV show, film, music, podcast platform
 
-STEP 2 — Choose affiliate_hint based on intent:
-- product      → "amazon_uk" (major brands: De'Longhi, Dyson, Philips, Sony, etc.) or "google_shopping" (lesser-known brands)
-- book         → "amazon_books"
-- course       → "udemy" or "coursera"
-- software     → "direct" (brand's own site)
-- restaurant   → "tripadvisor" for local_results, "tripadvisor" for world_results
-- hotel        → "booking" for local_results, "booking" for world_results
-- experience   → "viator"
-- travel       → "skyscanner"
-- local        → "google_maps" for local_results (real business), "google_shopping" for world_results
-- finance      → "moneysupermarket" (UK) or "direct"
-- health       → "google_maps" for local, "direct" for world
-- streaming    → "direct"
+STEP 2 — Choose affiliate_hint: always pick the BEST NAMED RETAILER for this specific product/service. Never use "google_shopping", "direct", or "brand_website" — always name a real retailer.
+
+RETAILER SELECTION GUIDE (pick most appropriate for product + location):
+- Electronics (TV, laptop, phone, headphones, camera): "currys" (UK) or "bestbuy" (US) or "amazon_uk"
+- Home appliances (coffee machine, vacuum, air fryer): "currys" or "john_lewis" or "amazon_uk"
+- General products, tools, toys, baby: "amazon_uk" or "argos"
+- Health, beauty, skincare, vitamins: "boots" or "amazon_uk"
+- Fashion, clothing, shoes, accessories: "asos" or "amazon_uk"
+- Books: "amazon_uk"
+- Courses, learning: "udemy" or "coursera"
+- Hotels, accommodation: "booking"
+- Restaurants, cafes, food: "tripadvisor"
+- Experiences, activities, tours: "viator"
+- Flights, travel: "skyscanner"
+- Local services (plumber, cleaner, trainer): "google_maps"
+- US-market products: "walmart" or "bestbuy" or "amazon_us"
+- Second-hand / collectibles / niche: "ebay_uk"
+- Premium / luxury goods: "john_lewis" or "amazon_uk"
 
 STEP 3 — For local_results vs world_results:
 - "local" intent (restaurant, local service, health): local_results = REAL businesses in ${city}, ${country}. world_results = best globally recognised brands/chains/products in that category
@@ -60,8 +65,8 @@ CRITICAL RULES:
 7. world_results must be DIFFERENT from local_results
 8. Return ONLY valid JSON — no markdown, no code fences, no preamble
 
-AFFILIATE HINTS REFERENCE:
-"amazon_uk" "amazon_us" "amazon_books" "google_shopping" "tripadvisor" "booking" "viator" "skyscanner" "udemy" "coursera" "direct" "google_maps" "moneysupermarket"
+AFFILIATE HINTS REFERENCE (use ONLY these — no others):
+"amazon_uk" "amazon_us" "currys" "argos" "john_lewis" "boots" "asos" "ebay_uk" "walmart" "bestbuy" "target" "booking" "tripadvisor" "viator" "skyscanner" "udemy" "coursera" "google_maps"
 
 REQUIRED JSON STRUCTURE:
 {
@@ -94,8 +99,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Find best price",
-      "affiliate_hint": "google_shopping"
+      "cta_text": "Buy at Currys",
+      "affiliate_hint": "currys"
     },
     {
       "rank": 3,
@@ -105,11 +110,11 @@ REQUIRED JSON STRUCTURE:
       "best_for": "buyer persona",
       "description": "2 sentences",
       "tags": ["tag1", "tag2"],
-      "availability": "Available online",
+      "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy direct",
-      "affiliate_hint": "direct"
+      "cta_text": "Buy at John Lewis",
+      "affiliate_hint": "john_lewis"
     }
   ],
   "world_results": [
@@ -124,8 +129,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Ships worldwide",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy direct",
-      "affiliate_hint": "direct"
+      "cta_text": "Buy on Amazon",
+      "affiliate_hint": "amazon_uk"
     },
     {
       "rank": 2,
@@ -138,8 +143,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Find best price",
-      "affiliate_hint": "google_shopping"
+      "cta_text": "Buy at Currys",
+      "affiliate_hint": "currys"
     },
     {
       "rank": 3,
@@ -152,8 +157,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Find best price",
-      "affiliate_hint": "google_shopping"
+      "cta_text": "Buy at Argos",
+      "affiliate_hint": "argos"
     }
   ],
   "ai_insight": "One expert tip most people don't know about this topic",

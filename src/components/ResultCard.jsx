@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { buildAffiliateUrl, logClick, DEFAULT_CTA } from '../utils/affiliates';
+import { buildAffiliateUrl, logClick, CTA_LABELS } from '../utils/affiliates';
 import ReportResultModal from './ReportResultModal';
 
 const SCORE_DIMS = [
@@ -27,7 +27,7 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
   const [showScores, setShowScores] = useState(false);
   const accentColor = type === 'local' ? '#0EB87B' : '#5254E8';
   const affiliateUrl = buildAffiliateUrl(affiliateHint, name, query);
-  const buttonLabel = ctaText || DEFAULT_CTA[affiliateHint] || 'View →';
+  const buttonLabel = ctaText || CTA_LABELS[affiliateHint] || 'View →';
 
   function handleCtaClick() {
     logClick({ rank, type, name, category, query });
@@ -157,23 +157,6 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
                 </svg>
               </a>
 
-              {/* Compare prices — always shown as secondary if primary isn't already google_shopping */}
-              {affiliateHint !== 'google_shopping' && (
-                <a
-                  href={`https://www.google.com/search?q=${encodeURIComponent(name)}&tbm=shop`}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  onClick={handleCtaClick}
-                  style={{
-                    fontSize: 11, fontWeight: 500, color: '#8888A0',
-                    textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 3,
-                    background: '#F5F5FA', border: '1px solid rgba(10,10,18,0.12)',
-                    padding: '4px 10px', borderRadius: 6, fontFamily: 'Inter, sans-serif'
-                  }}
-                >
-                  Compare prices
-                </a>
-              )}
             </div>
 
             <button
