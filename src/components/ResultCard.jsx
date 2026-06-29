@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { buildAffiliateUrl, logClick, STORE_LABELS } from '../utils/affiliates';
+import { buildAffiliateUrl, logClick, STORE_LABELS, DEFAULT_CTA } from '../utils/affiliates';
 import ReportResultModal from './ReportResultModal';
 
 const SCORE_DIMS = [
@@ -27,7 +27,8 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
   const [showScores, setShowScores] = useState(false);
   const accentColor = type === 'local' ? '#0EB87B' : '#5254E8';
   const affiliateUrl = buildAffiliateUrl(affiliateHint, name, query);
-  const storeLabel = STORE_LABELS[affiliateHint] || 'Buy now';
+  const storeLabel = STORE_LABELS[affiliateHint] || 'View';
+  const buttonLabel = ctaText || DEFAULT_CTA[affiliateHint] || 'View →';
 
   function handleCtaClick() {
     logClick({ rank, type, name, category, query });
@@ -151,7 +152,7 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
                   padding: '4px 10px', borderRadius: 6, fontFamily: 'Inter, sans-serif'
                 }}
               >
-                {ctaText || `Buy on ${storeLabel}`}
+                {buttonLabel}
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
