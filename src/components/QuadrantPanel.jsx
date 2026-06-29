@@ -39,10 +39,14 @@ export default function QuadrantPanel({ type, city, results = [], query, categor
             rank={item.rank || i + 1}
             name={item.name}
             score={item.score}
+            scores={item.scores}
+            bestFor={item.best_for}
             description={item.description}
             tags={item.tags || []}
             ctaText={item.cta_text}
             affiliateHint={item.affiliate_hint}
+            hasPhysicalStore={item.has_physical_store}
+            mapsQuery={item.maps_query}
             type={type}
             isTop={i === 0}
             query={query}

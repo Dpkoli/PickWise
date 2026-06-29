@@ -1,19 +1,46 @@
 export const AFFILIATE_CONFIG = {
-  amazon_uk:       "https://amazon.co.uk/s?k={query}&tag=YOURTAG-21",
-  amazon_us:       "https://amazon.com/s?k={query}&tag=YOURTAG-20",
+  amazon_uk:       "https://www.amazon.co.uk/s?k={query}&tag=YOURTAG-21",
+  amazon_us:       "https://www.amazon.com/s?k={query}&tag=YOURTAG-20",
+  currys:          "https://www.currys.co.uk/search?q={query}",
+  argos:           "https://www.argos.co.uk/search/{query}/",
+  john_lewis:      "https://www.johnlewis.com/search?search-term={query}",
+  walmart:         "https://www.walmart.com/search?q={query}",
+  bestbuy:         "https://www.bestbuy.com/site/searchpage.jsp?st={query}",
+  ebay_uk:         "https://www.ebay.co.uk/sch/i.html?_nkw={query}",
   booking:         "https://booking.com/searchresults.html?ss={query}&aid=BOOKAID",
-  google_maps:     "https://maps.google.com/?q={query}+near+me",
+  google_maps:     "https://maps.google.com/?q={query}",
   google_shopping: "https://www.google.com/search?q={query}&tbm=shop",
-  tripadvisor:     "https://tripadvisor.com/Search?q={query}",
   direct:          "https://www.google.com/search?q={query}+official+site+buy",
   brand_website:   "https://www.google.com/search?q={query}+official+site",
+  tripadvisor:     "https://tripadvisor.com/Search?q={query}",
   default:         "https://www.google.com/search?q={query}+buy+online"
+};
+
+export const STORE_LABELS = {
+  amazon_uk:       "Amazon UK",
+  amazon_us:       "Amazon US",
+  currys:          "Currys",
+  argos:           "Argos",
+  john_lewis:      "John Lewis",
+  walmart:         "Walmart",
+  bestbuy:         "Best Buy",
+  ebay_uk:         "eBay UK",
+  google_shopping: "Compare prices",
+  direct:          "Brand website",
+  brand_website:   "Brand website",
+  booking:         "Booking.com",
+  google_maps:     "Google Maps",
+  tripadvisor:     "TripAdvisor"
 };
 
 export function buildAffiliateUrl(hint, name, query) {
   const encoded = encodeURIComponent(name || query);
   const template = AFFILIATE_CONFIG[hint] || AFFILIATE_CONFIG.default;
   return template.replace('{query}', encoded);
+}
+
+export function buildMapsUrl(mapsQuery) {
+  return `https://maps.google.com/?q=${encodeURIComponent(mapsQuery)}`;
 }
 
 export function logClick({ rank, type, name, category, query }) {
