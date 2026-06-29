@@ -141,6 +141,7 @@ export default function Results() {
               <QuadrantPanel
                 type="local"
                 city={location.city || results.location_used}
+                country={location.country || 'UK'}
                 results={results.local_results || []}
                 query={query}
                 category={category}
