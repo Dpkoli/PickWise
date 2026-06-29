@@ -139,28 +139,7 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
           {/* Footer row: CTA buttons + Report */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              {/* Directions button — only for physical stores */}
-              {mapsUrl && (
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  onClick={handleCtaClick}
-                  style={{
-                    fontSize: 11, fontWeight: 600, color: '#0EB87B',
-                    textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4,
-                    background: '#E6FBF3', border: '1px solid #0EB87B',
-                    padding: '4px 10px', borderRadius: 6, fontFamily: 'Inter, sans-serif'
-                  }}
-                >
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
-                  </svg>
-                  Get directions
-                </a>
-              )}
-
-              {/* Buy button */}
+              {/* Primary buy button */}
               <a
                 href={affiliateUrl}
                 target="_blank"
@@ -178,6 +157,24 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
               </a>
+
+              {/* Compare prices — always shown as secondary if primary isn't already google_shopping */}
+              {affiliateHint !== 'google_shopping' && (
+                <a
+                  href={`https://www.google.com/search?q=${encodeURIComponent(name)}&tbm=shop`}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  onClick={handleCtaClick}
+                  style={{
+                    fontSize: 11, fontWeight: 500, color: '#8888A0',
+                    textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 3,
+                    background: '#F5F5FA', border: '1px solid rgba(10,10,18,0.12)',
+                    padding: '4px 10px', borderRadius: 6, fontFamily: 'Inter, sans-serif'
+                  }}
+                >
+                  Compare prices
+                </a>
+              )}
             </div>
 
             <button

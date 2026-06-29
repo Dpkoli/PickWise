@@ -27,19 +27,18 @@ CRITICAL RULES:
 6. For each result, score 4 dimensions out of 10: value_for_money, performance, durability, ease_of_use
 7. Set "has_physical_store": true ONLY if the product is primarily sold in physical retail stores in ${country}
 8. Set "maps_query" to the best physical store name + city to find it (e.g. "Currys ${city}") — only when has_physical_store is true
-9. Set affiliate_hint to the BEST place to buy this specific product:
-   - "amazon_uk"    → best bought on Amazon UK (amazon.co.uk)
-   - "amazon_us"    → best bought on Amazon US (amazon.com)
-   - "currys"       → available at Currys (UK electronics)
-   - "argos"        → available at Argos (UK general retail)
-   - "john_lewis"   → available at John Lewis (UK premium retail)
-   - "walmart"      → available at Walmart (US)
-   - "bestbuy"      → available at Best Buy (US electronics)
-   - "ebay_uk"      → best found on eBay UK
-   - "google_shopping" → compare prices across multiple retailers
-   - "direct"       → brand sells direct from its own website
-10. best_for = short phrase describing the ideal buyer (e.g. "budget-conscious home bakers")
-11. Return ONLY valid JSON — no markdown, no code fences, no preamble
+9. Set affiliate_hint — choose only from these options based on where this product is GENUINELY available:
+   - "amazon_uk"       → product is widely sold on Amazon UK — use for most physical products
+   - "amazon_us"       → product is primarily a US market product
+   - "google_shopping" → use when availability varies by retailer — Google Shopping shows live stock and prices across all stores
+   - "direct"          → brand is known to sell directly from its own official website (e.g. Dyson, Apple, Nike)
+   - "brand_website"   → brand has a strong direct-to-consumer site
+   - "booking"         → hotels / travel / experiences
+   DO NOT use retailer-specific hints (currys, argos, walmart etc.) — you cannot verify real-time stock
+10. Set "has_physical_store": false for all results — do not guess store locations
+11. Set "maps_query": "" for all results
+12. best_for = short phrase describing the ideal buyer (e.g. "budget-conscious home bakers")
+13. Return ONLY valid JSON — no markdown, no code fences, no preamble
 
 REQUIRED JSON STRUCTURE:
 {
@@ -70,10 +69,10 @@ REQUIRED JSON STRUCTURE:
       "description": "2 sentences description",
       "tags": ["tag1", "tag2"],
       "availability": "Available in ${country}",
-      "has_physical_store": true,
-      "maps_query": "Currys ${city}",
-      "cta_text": "Buy at Currys",
-      "affiliate_hint": "currys"
+      "has_physical_store": false,
+      "maps_query": "",
+      "cta_text": "Compare prices",
+      "affiliate_hint": "google_shopping"
     },
     {
       "rank": 3,
