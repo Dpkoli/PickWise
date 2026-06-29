@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { buildAffiliateUrl, logClick, STORE_LABELS, DEFAULT_CTA } from '../utils/affiliates';
+import { buildAffiliateUrl, logClick, DEFAULT_CTA } from '../utils/affiliates';
 import ReportResultModal from './ReportResultModal';
 
 const SCORE_DIMS = [
@@ -27,7 +27,6 @@ export default function ResultCard({ rank, name, score, scores, bestFor, descrip
   const [showScores, setShowScores] = useState(false);
   const accentColor = type === 'local' ? '#0EB87B' : '#5254E8';
   const affiliateUrl = buildAffiliateUrl(affiliateHint, name, query);
-  const storeLabel = STORE_LABELS[affiliateHint] || 'View';
   const buttonLabel = ctaText || DEFAULT_CTA[affiliateHint] || 'View →';
 
   function handleCtaClick() {
