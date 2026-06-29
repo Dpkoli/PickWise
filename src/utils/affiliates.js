@@ -34,7 +34,15 @@ export const STORE_LABELS = {
 };
 
 export function buildAffiliateUrl(hint, name, query) {
-  const encoded = encodeURIComponent(name || query);
+  const term = name || query;
+  // Amazon: use quoted exact-match search to surface the specific product
+  if (hint === 'amazon_uk') {
+    return `https://www.amazon.co.uk/s?k=${encodeURIComponent(`"${term}"`)}&tag=YOURTAG-21`;
+  }
+  if (hint === 'amazon_us') {
+    return `https://www.amazon.com/s?k=${encodeURIComponent(`"${term}"`)}&tag=YOURTAG-20`;
+  }
+  const encoded = encodeURIComponent(term);
   const template = AFFILIATE_CONFIG[hint] || AFFILIATE_CONFIG.default;
   return template.replace('{query}', encoded);
 }

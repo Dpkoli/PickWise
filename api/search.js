@@ -27,12 +27,12 @@ CRITICAL RULES:
 6. For each result, score 4 dimensions out of 10: value_for_money, performance, durability, ease_of_use
 7. Set "has_physical_store": true ONLY if the product is primarily sold in physical retail stores in ${country}
 8. Set "maps_query" to the best physical store name + city to find it (e.g. "Currys ${city}") — only when has_physical_store is true
-9. Set affiliate_hint — choose only from these options based on where this product is GENUINELY available:
-   - "amazon_uk"       → product is widely sold on Amazon UK — use for most physical products
-   - "amazon_us"       → product is primarily a US market product
-   - "google_shopping" → use when availability varies by retailer — Google Shopping shows live stock and prices across all stores
-   - "direct"          → brand is known to sell directly from its own official website (e.g. Dyson, Apple, Nike)
-   - "brand_website"   → brand has a strong direct-to-consumer site
+9. Set affiliate_hint — choose only from these options:
+   - "google_shopping" → DEFAULT for most products — Google Shopping shows the exact product across all retailers with live prices
+   - "direct"          → brand sells from its own official website (e.g. Dyson, Apple, Nike, Breville) — use when the brand is well known for direct sales
+   - "amazon_uk"       → ONLY use when the product is a major brand definitely sold on Amazon UK (e.g. De'Longhi, Bosch, Philips)
+   - "amazon_us"       → ONLY use when product is US-market focused and definitely on Amazon US
+   - "brand_website"   → brand has a strong direct-to-consumer store
    - "booking"         → hotels / travel / experiences
    DO NOT use retailer-specific hints (currys, argos, walmart etc.) — you cannot verify real-time stock
 10. Set "has_physical_store": false for all results — do not guess store locations
@@ -57,8 +57,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy on Amazon",
-      "affiliate_hint": "amazon_uk"
+      "cta_text": "Find best price",
+      "affiliate_hint": "google_shopping"
     },
     {
       "rank": 2,
@@ -71,8 +71,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available in ${country}",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Compare prices",
-      "affiliate_hint": "google_shopping"
+      "cta_text": "Buy direct",
+      "affiliate_hint": "direct"
     },
     {
       "rank": 3,
@@ -85,8 +85,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy direct",
-      "affiliate_hint": "direct"
+      "cta_text": "Find best price",
+      "affiliate_hint": "google_shopping"
     }
   ],
   "world_results": [
@@ -115,8 +115,8 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Buy on Amazon",
-      "affiliate_hint": "amazon_us"
+      "cta_text": "Find best price",
+      "affiliate_hint": "google_shopping"
     },
     {
       "rank": 3,
@@ -129,7 +129,7 @@ REQUIRED JSON STRUCTURE:
       "availability": "Available online",
       "has_physical_store": false,
       "maps_query": "",
-      "cta_text": "Compare prices",
+      "cta_text": "Find best price",
       "affiliate_hint": "google_shopping"
     }
   ],
