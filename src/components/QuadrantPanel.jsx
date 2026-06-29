@@ -45,8 +45,6 @@ export default function QuadrantPanel({ type, city, results = [], query, categor
             tags={item.tags || []}
             ctaText={item.cta_text}
             affiliateHint={item.affiliate_hint}
-            hasPhysicalStore={item.has_physical_store}
-            mapsQuery={item.maps_query}
             type={type}
             isTop={i === 0}
             query={query}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { buildAffiliateUrl, buildMapsUrl, logClick, STORE_LABELS } from '../utils/affiliates';
+import { buildAffiliateUrl, logClick, STORE_LABELS } from '../utils/affiliates';
 import ReportResultModal from './ReportResultModal';
 
 const SCORE_DIMS = [
@@ -22,12 +22,11 @@ function ScoreBar({ label, value }) {
   );
 }
 
-export default function ResultCard({ rank, name, score, scores, bestFor, description, tags, ctaText, affiliateHint, hasPhysicalStore, mapsQuery, type, isTop, query, category, animationDelay = 0 }) {
+export default function ResultCard({ rank, name, score, scores, bestFor, description, tags, ctaText, affiliateHint, type, isTop, query, category, animationDelay = 0 }) {
   const [showReport, setShowReport] = useState(false);
   const [showScores, setShowScores] = useState(false);
   const accentColor = type === 'local' ? '#0EB87B' : '#5254E8';
   const affiliateUrl = buildAffiliateUrl(affiliateHint, name, query);
-  const mapsUrl = hasPhysicalStore && mapsQuery ? buildMapsUrl(mapsQuery) : null;
   const storeLabel = STORE_LABELS[affiliateHint] || 'Buy now';
 
   function handleCtaClick() {
